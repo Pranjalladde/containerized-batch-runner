@@ -1,0 +1,14 @@
+{
+  "image": "containerized-batch-runner:1.0.0",
+  "tasks": [
+    {"id": "task_1"},
+    {"id": "task_2"},
+    {"id": "task_3"}
+  ],
+  "max_attempts": 3,
+  "backoff_seconds": 1,
+  "memory_limit": "256m",
+  "cpus": 0.5,
+  "task_timeout_seconds": 300,
+  "log_level": "INFO"
+}
