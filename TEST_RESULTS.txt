@@ -1,0 +1,50 @@
+Spreadsheet runtime warmup failed during python startup
+Traceback (most recent call last):
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 785, in warm_spreadsheet_runtime
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 718, in _warm_feature_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 509, in _warm_drawing_and_image_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/generated/interface/models.py", line 32861, in bring_to_front
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/remote.py", line 764, in __call__
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/client.py", line 175, in call
+artifact_tool.rpc.client.RemoteError: Element ordering requires an owning element collection.
+test_missing_checkpoint (test_checkpoint.CheckpointTests.test_missing_checkpoint) ... ok
+test_save_load_and_no_duplicates (test_checkpoint.CheckpointTests.test_save_load_and_no_duplicates) ... ok
+test_builds_isolated_container_command (test_docker_executor.DockerExecutorTests.test_builds_isolated_container_command) ... ok
+test_exhaustion (test_retry.RetryTests.test_exhaustion) ... ok
+test_invalid_attempt_count (test_retry.RetryTests.test_invalid_attempt_count) ... ok
+test_retry_then_success (test_retry.RetryTests.test_retry_then_success) ... ok
+test_success (test_retry.RetryTests.test_success) ... ok
+test_failure_stops_batch (test_runner.RunnerTests.test_failure_stops_batch) ... Task failed
+Traceback (most recent call last):
+  File "/mnt/data/containerized-batch-runner/app/retry.py", line 12, in run_with_retries
+    return operation(), attempt
+           ~~~~~~~~~^^
+  File "/mnt/data/containerized-batch-runner/app/runner.py", line 39, in <lambda>
+    lambda: executor.execute(task_id), attempts, backoff
+            ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/mnt/data/containerized-batch-runner/tests/test_runner.py", line 15, in execute
+    raise RuntimeError("permanent")
+RuntimeError: permanent
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/data/containerized-batch-runner/app/runner.py", line 38, in run_batch
+    result, used_attempts = run_with_retries(
+                            ~~~~~~~~~~~~~~~~^
+        lambda: executor.execute(task_id), attempts, backoff
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/mnt/data/containerized-batch-runner/app/retry.py", line 18, in run_with_retries
+    raise RuntimeError(f"Operation failed after {max_attempts} attempts: {last_error}") from last_error
+RuntimeError: Operation failed after 1 attempts: permanent
+ok
+test_manifest_validation (test_runner.RunnerTests.test_manifest_validation) ... ok
+test_success_retry_and_resume (test_runner.RunnerTests.test_success_retry_and_resume) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.010s
+
+OK

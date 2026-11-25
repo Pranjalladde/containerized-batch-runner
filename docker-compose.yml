@@ -1,0 +1,12 @@
+services:
+  batch-runner:
+    build:
+      context: .
+    image: containerized-batch-runner:1.0.0
+    command: ["-m", "app.runner", "--manifest", "config/manifest.json"]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/app/data
+      - ./config:/app/config:ro
+    mem_limit: 512m
+    cpus: 1.0
